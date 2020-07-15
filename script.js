@@ -1,9 +1,8 @@
 var field = document.querySelector('table tbody');
-var cols = rows = 40;
+var cols = rows = 100;
 var grid = buildField(cols, rows);
 var running = false;
 var currentGen = 0;
-var saveGrids = [];
 
 function buildField(cols, rows) {
     var arr = new Array(cols);
@@ -16,13 +15,13 @@ function buildField(cols, rows) {
 function populateField() {
     for(var i = 0; i < grid.length; i++) {
         for(var j = 0; j < grid[i].length; j++) {
-            if(Math.random() > 0.83)
+            if(Math.random() > 0.90)
                 grid[i][j] = true;
             else
                 grid[i][j] = false;
         }
     }
-    saveGrid();
+    incrementCounterGen();
 }
 
 function render() {
@@ -63,11 +62,10 @@ function countNeighbourhood(col, row, selfStatus) {
 function nextGen() {
     makeItLive();
     render();
-    saveGrid();
+    incrementCounterGen();
 }
 
-function saveGrid() {
-    saveGrids.push(grid);
+function incrementCounterGen() {
     currentGen++;
     document.querySelector('#genCounter').innerHTML = currentGen;
 }
